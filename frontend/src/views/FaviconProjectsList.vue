@@ -1,6 +1,8 @@
 <template>
   <div class="mt-36 mb-36">
-    <button class="blueButton mb-12" @click="downloadLocalStorageAsJSON()">Als JSON Herunterladen</button>
+    <button class="blueButton mb-12" @click="downloadLocalStorageAsJSON()">
+      Als JSON Herunterladen
+    </button>
     <table class="listTable">
       <thead>
         <tr>

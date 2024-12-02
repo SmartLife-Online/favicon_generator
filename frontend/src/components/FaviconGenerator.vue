@@ -13,7 +13,11 @@
       <label for="domain">Hintergrund-Farbe</label>
       <input type="color" v-model="activeProject.backgroundColor" />
     </div>
-    <IconEditor ref="refIconEditor" :background_color="activeProject.backgroundColor" :activeProject="activeProject" />
+    <IconEditor
+      ref="refIconEditor"
+      :background_color="activeProject.backgroundColor"
+      :activeProject="activeProject"
+    />
     <div id="testen" ref="refTest"></div>
     <br />
     <button class="greenButton float-right" @click="downloadAndSaveProject">
@@ -36,8 +40,6 @@ const router = useRouter()
 const projectsData = projectsStore()
 
 const projectId = (route.params.projectId || '0') as string
-
-//projectsData.activeProject = ref<Project>(projectsData.findProject(parseInt(projectId)))
 
 const activeProject = ref<Project>(projectsData.findProject(parseInt(projectId)))
 
