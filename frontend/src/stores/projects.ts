@@ -42,6 +42,7 @@ export const projectsStore = defineStore('projects', () => {
       imgUrl: '',
       svgContent: '',
       backgroundColor: '#ffffff',
+      rounded: false,
     }
   }
 

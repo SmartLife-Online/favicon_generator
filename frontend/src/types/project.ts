@@ -6,4 +6,5 @@ export interface Project {
   imgUrl: string
   svgContent: string
   backgroundColor: string
+  rounded: boolean
 }

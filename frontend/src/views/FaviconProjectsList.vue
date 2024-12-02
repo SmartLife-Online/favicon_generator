@@ -1,5 +1,6 @@
 <template>
   <div class="mt-36 mb-36">
+    <button class="blueButton mb-12" @click="downloadLocalStorageAsJSON()">Als JSON Herunterladen</button>
     <table class="listTable">
       <thead>
         <tr>
@@ -24,6 +25,9 @@
             <RouterLink :to="'/favicon/generator/' + project.id">
               <button class="greenButton">Projekt Öffnen</button>
             </RouterLink>
+            <button class="blueButton" @click="downloadAsJSON(project)">
+              Als JSON Herunterladen
+            </button>
           </td>
         </tr>
       </tbody>
@@ -35,9 +39,30 @@
 import { ref } from 'vue'
 import { projectsStore } from '../stores/projects'
 import type { Project } from '../types/project'
+import { saveAs } from 'file-saver'
 
 const projectsData = projectsStore()
 const projects = projectsData.projects as Project[]
+
+function downloadAsJSON(project: Project) {
+  if (!project) return
+
+  const projectsJSON = JSON.stringify(project)
+
+  const jsonBlob = new Blob([projectsJSON], { type: 'application/json' })
+
+  saveAs(jsonBlob, 'favicons_project_' + project.id + '.json')
+}
+
+function downloadLocalStorageAsJSON() {
+  const projectsJSON = localStorage.getItem('projects')
+
+  if (!projectsJSON) return
+
+  const jsonBlob = new Blob([projectsJSON], { type: 'application/json' })
+
+  saveAs(jsonBlob, 'favicons.json')
+}
 </script>
 
 <style></style>

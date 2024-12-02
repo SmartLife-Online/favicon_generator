@@ -13,7 +13,7 @@
       <label for="domain">Hintergrund-Farbe</label>
       <input type="color" v-model="activeProject.backgroundColor" />
     </div>
-    <IconEditor ref="refIconEditor" :background_color="activeProject.backgroundColor" />
+    <IconEditor ref="refIconEditor" :background_color="activeProject.backgroundColor" :activeProject="activeProject" />
     <div id="testen" ref="refTest"></div>
     <br />
     <button class="greenButton float-right" @click="downloadAndSaveProject">
