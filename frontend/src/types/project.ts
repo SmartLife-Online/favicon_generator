@@ -7,4 +7,5 @@ export interface Project {
   svgContent: string
   backgroundColor: string
   rounded: boolean
+  gray: boolean
 }

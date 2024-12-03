@@ -3,7 +3,8 @@
     <button class="blueButton mb-12" @click="downloadLocalStorageAsJSON()">
       Als JSON Herunterladen
     </button>
-    <table class="listTable">
+    <Searchbar></Searchbar>
+    <table class="listTable mt-4">
       <thead>
         <tr>
           <th>ID</th>

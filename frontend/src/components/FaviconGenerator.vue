@@ -46,13 +46,13 @@ const activeProject = ref<Project>(projectsData.findProject(parseInt(projectId))
 const refIconEditor = ref<InstanceType<typeof IconEditor> | null>(null)
 
 function saveProject() {
-  if (projectsData.saveProject(activeProject)) {
+  if (projectsData.saveProject(activeProject.value)) {
     router.push({ name: 'favicon.generator.edit', params: { projectId: activeProject.value.id } })
   }
 }
 
 function downloadAndSaveProject() {
-  projectsData.saveProject(activeProject)
+  projectsData.saveProject(activeProject.value)
 
   refIconEditor.value?.downloadAllCanvas()
 }

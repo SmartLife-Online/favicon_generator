@@ -19,7 +19,6 @@
 import { ref } from 'vue'
 import { projectsStore } from '../stores/projects'
 
-// Props-Typen mit einem Interface definieren
 interface CanvasProps {
   name: string
   safezone?: number

@@ -15,18 +15,16 @@ export const projectsStore = defineStore('projects', () => {
     return foundProject
   }
 
-  const saveProject = (activeProject): boolean => {
-    if (!activeProject.value.id) {
+  const saveProject = (activeProject: Project): boolean => {
+    if (!activeProject.id) {
       highestId++
 
-      activeProject.value.id = highestId
+      activeProject.id = highestId
 
-      projects.value.push(activeProject.value)
+      projects.value.push(activeProject)
 
       localStorage.setItem('highestId', highestId.toString())
     }
-
-    console.log(projects.value)
 
     localStorage.setItem('projects', JSON.stringify(projects.value))
 
@@ -43,6 +41,7 @@ export const projectsStore = defineStore('projects', () => {
       svgContent: '',
       backgroundColor: '#ffffff',
       rounded: false,
+      gray: false,
     }
   }
 

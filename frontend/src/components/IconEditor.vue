@@ -1,12 +1,12 @@
 <template>
   <div class="lg:px-8 mt-12 mb-24">
-    <label class="inline-flex items-center cursor-pointer">
-      <input type="checkbox" v-model="activeProject.rounded" class="sr-only peer" />
-      <div
-        class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
-      ></div>
-      <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Rundes Icon</span>
-    </label>
+    <SwitchCheckbox
+      v-model="activeProject.rounded" label="Rundes Icon"
+    ></SwitchCheckbox>
+    <SwitchCheckbox
+      v-model="activeProject.gray" label="Grau einfärben"
+      class="ml-6"
+    ></SwitchCheckbox>
     <br />
     <br />
     <input type="file" accept=".svg" @change="onFileChange" class="mb-4" />
@@ -103,7 +103,7 @@ const canvasArray = [
 const { background_color, activeProject } = defineProps(['background_color', 'activeProject'])
 
 watch(
-  () => background_color,
+  () => [background_color, activeProject.gray],
   (newValue, oldValue) => {
     drawSvgOnAllCanvas()
   },
@@ -185,11 +185,41 @@ const drawSvgOnCanvas = async (canvas: HTMLCanvasElement | null) => {
     ctx.drawImage(svgImage, svgOffsetX, svgOffsetY, drawWidth, drawHeight)
 
     URL.revokeObjectURL(url)
+
+    if(activeProject.gray) {
+      paintCanvasInGray(ctx, canvasWidth, canvasHeight)
+    }
   }
 
   svgImage.src = url
 
   activeProject.imgUrl = url
+}
+
+const paintCanvasInGray = (
+  ctx: CanvasRenderingContext2D,
+  canvasWidth: number,
+  canvasHeight: number,
+) => {
+  const canvasImageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight)
+  const canvasImageDataPixels = canvasImageData.data
+
+  for (let i = 0; i < canvasImageDataPixels.length; i += 4) {
+    const red = canvasImageDataPixels[i]
+    const green = canvasImageDataPixels[i + 1]
+    const blue = canvasImageDataPixels[i + 2]
+    //canvasImageDataPixels[i + 3] (Alpha-Wert)
+
+    canvasImageDataPixels[i + 3]
+
+    const luminanzGray = 0.299 * red + 0.587 * green + 0.114 * blue
+
+    canvasImageDataPixels[i] = luminanzGray
+    canvasImageDataPixels[i + 1] = luminanzGray
+    canvasImageDataPixels[i + 2] = luminanzGray
+  }
+
+  ctx.putImageData(canvasImageData, 0, 0)
 }
 
 const downloadAllCanvas = async () => {
