@@ -14,16 +14,16 @@ import { ref, watch } from 'vue'
 const props = defineProps({
   modelValue: String,
   label: String,
-});
+})
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(['update:modelValue'])
 
-const value = ref(props.modelValue);
+const value = ref(props.modelValue)
 
 // Synchronisiere den Wert mit dem Parent
 watch(value, (newValue) => {
-  emit('update:modelValue', newValue);
-});
+  emit('update:modelValue', newValue)
+})
 </script>
 
 <style scoped></style>

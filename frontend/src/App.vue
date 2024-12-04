@@ -1,12 +1,13 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <div>
+  <div :class="{ grayscale: isDevInstanz }">
     <header>
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
+      <SwitchCheckbox
+        v-model="isDevInstanz"
+        label="Dev Instanz"
+        class="ml-6 mr-12"
+      ></SwitchCheckbox>
       <div class="wrapper">
         <nav>
           <RouterLink to="/favicon/projects">Eigene Projekte</RouterLink>
@@ -18,6 +19,12 @@ import { RouterLink, RouterView } from 'vue-router'
     <RouterView />
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+let isDevInstanz = ref(false)
+</script>
 
 <style scoped>
 header {

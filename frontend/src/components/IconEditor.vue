@@ -1,10 +1,9 @@
 <template>
   <div class="lg:px-8 mt-12 mb-24">
+    <SwitchCheckbox v-model="activeProject.rounded" label="Rundes Icon"></SwitchCheckbox>
     <SwitchCheckbox
-      v-model="activeProject.rounded" label="Rundes Icon"
-    ></SwitchCheckbox>
-    <SwitchCheckbox
-      v-model="activeProject.gray" label="Grau einfärben"
+      v-model="activeProject.gray"
+      label="Grau einfärben"
       class="ml-6"
     ></SwitchCheckbox>
     <br />
@@ -186,7 +185,7 @@ const drawSvgOnCanvas = async (canvas: HTMLCanvasElement | null) => {
 
     URL.revokeObjectURL(url)
 
-    if(activeProject.gray) {
+    if (activeProject.gray) {
       paintCanvasInGray(ctx, canvasWidth, canvasHeight)
     }
   }
