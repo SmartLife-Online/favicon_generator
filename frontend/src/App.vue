@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ grayscale: isDevInstanz }">
+  <div :class="{ grayscale: isDevInstanz }" class="m-auto mt-12 transition duration-500 w-11/12 lg:w-[1024px]">
     <header>
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 

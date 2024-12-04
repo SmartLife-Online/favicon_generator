@@ -7,7 +7,6 @@
     <table class="listTable mt-4">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Titel</th>
           <th>Beschreibung</th>
           <th>Optionen</th>
@@ -15,9 +14,6 @@
       </thead>
       <tbody>
         <tr v-for="project in projects" :key="project.id">
-          <td>
-            {{ project.id }}
-          </td>
           <td>
             {{ project.title }}
           </td>

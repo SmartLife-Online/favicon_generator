@@ -1,9 +1,9 @@
 <template>
-  <div class="inline-block">
+  <div class="mb-6 lg-mb:0 lg:inline-block">
     <canvas
       ref="canvasRef"
       :name="name"
-      class="inline-block bg-white"
+      class="lg:inline-block bg-white"
       :class="{ 'rounded-full': roundedCanvas }"
       :data-safezone="safezone"
       :data-format="format"
