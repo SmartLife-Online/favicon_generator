@@ -2,6 +2,7 @@
   <div class="mb-6 lg-mb:0 lg:inline-block">
     <canvas
       ref="canvasRef"
+      :id="name"
       :name="name"
       class="lg:inline-block bg-white"
       :class="{ 'rounded-full': roundedCanvas }"

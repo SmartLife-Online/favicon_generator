@@ -8,13 +8,15 @@
       <li
         v-for="project in filteredProjects"
         :key="project.id"
-        class="mb-2 p-4 border rounded hover:border-green-400 hover:cursor-pointer transform transition duration-300 hover:scale-105"
+        class="mb-2 p-4 border rounded hover:border-green-400 hover:cursor-pointer transition duration-300 hover:scale-105"
       >
-        <h2 class="text-lg font-bold" v-html="highlightText(project.title, searchQuery)"></h2>
-        <p
-          class="text-sm text-gray-600"
-          v-html="highlightText(project.description, searchQuery)"
-        ></p>
+        <RouterLink :to="'/favicon/generator/' + project.id">
+          <h2 class="text-lg font-bold" v-html="highlightText(project.title, searchQuery)"></h2>
+          <p
+            class="text-sm text-gray-600"
+            v-html="highlightText(project.description, searchQuery)"
+          ></p>
+        </RouterLink>
       </li>
     </ul>
   </div>
@@ -48,7 +50,6 @@ const highlightText = (text: string, query: string) => {
 
   return text.replace(regex, '<mark>$1</mark>')
 }
-// no-repeat 15px center
 </script>
 
 <style scoped></style>

@@ -3,7 +3,7 @@
     <button class="blueButton mb-12" @click="downloadLocalStorageAsJSON()">
       Als JSON Herunterladen
     </button>
-    <Searchbar></Searchbar>
+    <ProjectSearchbar></ProjectSearchbar>
     <table class="listTable mt-4">
       <thead>
         <tr>
@@ -22,7 +22,7 @@
           </td>
           <td>
             <RouterLink :to="'/favicon/generator/' + project.id">
-              <button class="greenButton">Projekt Öffnen</button>
+              <button class="greenButton mb-6 lg:mb-0">Projekt Öffnen</button>
             </RouterLink>
             <button class="blueButton" @click="downloadAsJSON(project)">
               Als JSON Herunterladen

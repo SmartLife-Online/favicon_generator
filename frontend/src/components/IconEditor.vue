@@ -82,6 +82,7 @@ import IconCanvas from '../components/IconCanvas.vue'
 import { Canvg } from 'canvg'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
+import canvasToSvg from "canvas-to-svg";
 
 const canvasIco = ref<InstanceType<typeof IconCanvas> | null>(null)
 const canvasWebpngKlein = ref<InstanceType<typeof IconCanvas> | null>(null)
@@ -135,16 +136,13 @@ const onFileChange = (event: Event) => {
 const drawSvgOnAllCanvas = async () => {
   canvasArray.forEach((canvas) => {
     if (!canvas?.value?.canvasRef) return
+
     const imgBase64Data = drawSvgOnCanvas(canvas.value.canvasRef)
   })
 }
 
 const drawSvgOnCanvas = async (canvas: HTMLCanvasElement | null) => {
   if (!canvas || !activeProject.svgContent) return false
-
-  const ctx = canvas.getContext('2d')
-
-  if (!ctx) return false
 
   const canvasWidth = canvas.clientWidth
   const canvasHeight = canvas.clientHeight
@@ -155,6 +153,11 @@ const drawSvgOnCanvas = async (canvas: HTMLCanvasElement | null) => {
 
   canvas.width = canvasWidth
   canvas.height = canvasHeight
+  
+  //const ctx = canvas.dataset?.file_ending === 'svg' ? new canvasToSvg(canvasWidth, canvasHeight) : canvas.getContext('2d')
+  const ctx = canvas.getContext('2d')
+
+  if (!ctx) return false
 
   ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
@@ -230,21 +233,35 @@ const downloadAllCanvas = async () => {
     const fileFormat = canvas.value.canvasRef.dataset.format || 'image/png'
     const fileEnding = canvas.value.canvasRef.dataset.file_ending || 'png'
 
-    const downloadImage = canvas.value.canvasRef
+    let imgBase64Data;
+    if(fileEnding === 'svg') {
+      const context = new SVGCanvas(canvas.value.canvasRef.id)
+
+      const downloadImage = context
+      .toDataURL(fileFormat)
+      .replace(fileFormat, 'image/octet-stream')
+      
+      if (!downloadImage) return
+
+      imgBase64Data = downloadImage.split(',')[1]
+    } else {
+      const downloadImage = canvas.value.canvasRef
       .toDataURL(fileFormat)
       .replace(fileFormat, 'image/octet-stream')
 
-    if (!downloadImage) return false
+      if (!downloadImage) return
 
-    const imgBase64Data = downloadImage.split(',')[1]
+      imgBase64Data = downloadImage.split(',')[1]
+      
+      if (!imgBase64Data) return
+    }
 
-    if (!imgBase64Data) return
 
     zip.file(canvas.value.canvasRef.getAttribute('name') + '.' + fileEnding, imgBase64Data, {
       base64: true,
     })
   }
-
+  
   const zipBlob = await zip.generateAsync({ type: 'blob' })
 
   saveAs(zipBlob, 'favicons.zip')
