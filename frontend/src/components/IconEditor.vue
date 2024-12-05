@@ -82,7 +82,7 @@ import IconCanvas from '../components/IconCanvas.vue'
 import { Canvg } from 'canvg'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
-import canvasToSvg from "canvas-to-svg";
+import canvasToSvg from 'canvas-to-svg'
 
 const canvasIco = ref<InstanceType<typeof IconCanvas> | null>(null)
 const canvasWebpngKlein = ref<InstanceType<typeof IconCanvas> | null>(null)
@@ -153,7 +153,7 @@ const drawSvgOnCanvas = async (canvas: HTMLCanvasElement | null) => {
 
   canvas.width = canvasWidth
   canvas.height = canvasHeight
-  
+
   //const ctx = canvas.dataset?.file_ending === 'svg' ? new canvasToSvg(canvasWidth, canvasHeight) : canvas.getContext('2d')
   const ctx = canvas.getContext('2d')
 
@@ -233,35 +233,32 @@ const downloadAllCanvas = async () => {
     const fileFormat = canvas.value.canvasRef.dataset.format || 'image/png'
     const fileEnding = canvas.value.canvasRef.dataset.file_ending || 'png'
 
-    let imgBase64Data;
-    if(fileEnding === 'svg') {
+    let imgBase64Data
+    if (fileEnding === 'svg') {
       const context = new SVGCanvas(canvas.value.canvasRef.id)
 
-      const downloadImage = context
-      .toDataURL(fileFormat)
-      .replace(fileFormat, 'image/octet-stream')
-      
+      const downloadImage = context.toDataURL(fileFormat).replace(fileFormat, 'image/octet-stream')
+
       if (!downloadImage) return
 
       imgBase64Data = downloadImage.split(',')[1]
     } else {
       const downloadImage = canvas.value.canvasRef
-      .toDataURL(fileFormat)
-      .replace(fileFormat, 'image/octet-stream')
+        .toDataURL(fileFormat)
+        .replace(fileFormat, 'image/octet-stream')
 
       if (!downloadImage) return
 
       imgBase64Data = downloadImage.split(',')[1]
-      
+
       if (!imgBase64Data) return
     }
-
 
     zip.file(canvas.value.canvasRef.getAttribute('name') + '.' + fileEnding, imgBase64Data, {
       base64: true,
     })
   }
-  
+
   const zipBlob = await zip.generateAsync({ type: 'blob' })
 
   saveAs(zipBlob, 'favicons.zip')
