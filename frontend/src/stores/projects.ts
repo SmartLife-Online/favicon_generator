@@ -46,11 +46,11 @@ export const projectsStore = defineStore('projects', () => {
   }
 
   function getHighestId(): number {
-    if(!projects.value || !projects.value.length) return 0
+    if (!projects.value || !projects.value.length) return 0
 
     let highestId = 0
 
-    projects.value.forEach(project => {
+    projects.value.forEach((project) => {
       if (project.id > highestId) highestId = project.id
     })
 
