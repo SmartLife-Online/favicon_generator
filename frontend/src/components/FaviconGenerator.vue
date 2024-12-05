@@ -3,12 +3,15 @@
     <div class="faviconForm">
       <label for="title">Titel</label>
       <input id="title" type="text" v-model="activeProject.title" class="input" />
+      <span v-if="formError && !activeProject.title" class="text-red-600">Bitte geben Sie einen Titel ein</span>
 
       <label for="description">Beschreibung</label>
       <input id="description" type="text" v-model="activeProject.description" class="input" />
+      <span v-if="formError && !activeProject.description" class="text-red-600">Bitte geben Sie eine Beschreibung ein</span>
 
       <label for="domain">Domain</label>
       <input id="domain" type="text" v-model="activeProject.domain" class="input" />
+      <span v-if="formError && !activeProject.domain" class="text-red-600">Bitte geben Sie eine Domain ein</span>
 
       <label for="domain">Hintergrund-Farbe</label>
       <input type="color" v-model="activeProject.backgroundColor" />
@@ -45,7 +48,20 @@ const activeProject = ref<Project>(projectsData.findProject(parseInt(projectId))
 
 const refIconEditor = ref<InstanceType<typeof IconEditor> | null>(null)
 
+const formError = ref(false)
+
+function validateProjectForm() {
+  if(activeProject.value.title && activeProject.value.description && activeProject.value.domain) return true
+
+  formError.value = true
+
+  return false
+}
+
 function saveProject() {
+  validateProjectForm()
+
+  return
   if (projectsData.saveProject(activeProject.value)) {
     router.push({ name: 'favicon.generator.edit', params: { projectId: activeProject.value.id } })
   }

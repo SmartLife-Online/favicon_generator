@@ -17,13 +17,9 @@ export const projectsStore = defineStore('projects', () => {
 
   const saveProject = (activeProject: Project): boolean => {
     if (!activeProject.id) {
-      highestId++
-
-      activeProject.id = highestId
+      activeProject.id = getHighestId() + 1
 
       projects.value.push(activeProject)
-
-      localStorage.setItem('highestId', highestId.toString())
     }
 
     localStorage.setItem('projects', JSON.stringify(projects.value))
@@ -49,11 +45,21 @@ export const projectsStore = defineStore('projects', () => {
     }
   }
 
+  function getHighestId(): number {
+    if(!projects.value || !projects.value.length) return 0
+
+    let highestId = 0
+
+    projects.value.forEach(project => {
+      if (project.id > highestId) highestId = project.id
+    })
+
+    return highestId
+  }
+
   const localStorageProjects = localStorage.getItem('projects')
 
   const projects = ref<Project[]>(localStorageProjects ? JSON.parse(localStorageProjects) : [])
 
-  let highestId = parseInt(localStorage.getItem('highestId') || '0')
-
-  return { projects, highestId, findProject, importProjects, saveProject }
+  return { projects, findProject, importProjects, saveProject }
 })
