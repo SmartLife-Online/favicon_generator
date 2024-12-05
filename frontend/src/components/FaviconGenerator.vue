@@ -59,9 +59,8 @@ function validateProjectForm() {
 }
 
 function saveProject() {
-  validateProjectForm()
-
-  return
+  if(!validateProjectForm()) return
+  
   if (projectsData.saveProject(activeProject.value)) {
     router.push({ name: 'favicon.generator.edit', params: { projectId: activeProject.value.id } })
   }
