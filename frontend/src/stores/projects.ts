@@ -4,13 +4,13 @@ import type { Project } from '../types/project'
 
 export const projectsStore = defineStore('projects', () => {
   const findProject = (projectId: number): Project => {
+    if (!projects.value) return getNewProject()
+
     const foundProject = projects.value.find((project) => {
       return project.id == projectId
     }) as Project
 
-    if (!foundProject) {
-      return getNewProject()
-    }
+    if (!foundProject) return getNewProject()
 
     return foundProject
   }
@@ -31,6 +31,10 @@ export const projectsStore = defineStore('projects', () => {
     return true
   }
 
+  const importProjects = (JsonString: string) => {
+    localStorage.setItem('projects', JsonString)
+  }
+
   const getNewProject = (): Project => {
     return {
       id: 0,
@@ -47,13 +51,9 @@ export const projectsStore = defineStore('projects', () => {
 
   const localStorageProjects = localStorage.getItem('projects')
 
-  const projects = ref<Project[]>(
-    localStorageProjects ? JSON.parse(localStorageProjects) : [getNewProject()],
-  )
-
-  let activeProject = ref<Project>(getNewProject())
+  const projects = ref<Project[]>(localStorageProjects ? JSON.parse(localStorageProjects) : [])
 
   let highestId = parseInt(localStorage.getItem('highestId') || '0')
 
-  return { projects, activeProject, highestId, findProject, saveProject }
+  return { projects, highestId, findProject, importProjects, saveProject }
 })

@@ -3,8 +3,15 @@
     <button class="blueButton mb-12" @click="downloadLocalStorageAsJSON()">
       Alle Projekte als JSON Herunterladen
     </button>
-    <ProjectSearchbar></ProjectSearchbar>
-    <table class="listTable mt-4">
+    <button @click="showModal = true" class="blueButton">Projekte als JSON importieren</button>
+    <ProjectsJsonModal
+      v-if="showModal"
+      :isOpen="showModal"
+      @close="showModal = false"
+      @save="handleSaveJsonString"
+    />
+    <ProjectSearchbar />
+    <table v-if="projects.length" class="listTable mt-4">
       <thead>
         <tr>
           <th>Titel</th>
@@ -36,12 +43,21 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { projectsStore } from '../stores/projects'
 import type { Project } from '../types/project'
 import { saveAs } from 'file-saver'
 
 const projectsData = projectsStore()
-const projects = projectsData.projects as Project[]
+const projects = ref(projectsData.projects)
+
+const showModal = ref(false)
+
+const handleSaveJsonString = (JsonString: string) => {
+  projectsData.importProjects(JsonString)
+
+  location.reload()
+}
 
 function downloadAsJSON(project: Project) {
   if (!project) return

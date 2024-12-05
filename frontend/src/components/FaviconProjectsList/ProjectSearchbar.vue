@@ -24,8 +24,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { projectsStore } from '../stores/projects'
-import type { Project } from '../types/project'
+import { projectsStore } from '../../stores/projects'
+import type { Project } from '../../types/project'
 
 const projectsData = projectsStore()
 const projects = projectsData.projects

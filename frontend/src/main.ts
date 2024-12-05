@@ -6,11 +6,12 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import ColorPicker from './components/ColorPicker.vue'
+import SwitchCheckbox from './components/SwitchCheckbox.vue'
 import IconEditor from './components/IconEditor.vue'
 import FaviconGenerator from './components/FaviconGenerator.vue'
 import IconCanvas from './components/IconCanvas.vue'
-import ProjectSearchbar from './components/ProjectSearchbar.vue'
-import SwitchCheckbox from './components/SwitchCheckbox.vue'
+import ProjectSearchbar from './components/FaviconProjectsList/ProjectSearchbar.vue'
+import ProjectsJsonModal from './components/FaviconProjectsList/ProjectsJsonModal.vue'
 
 const app = createApp(App)
 
@@ -21,7 +22,8 @@ app.component('ColorPicker', ColorPicker)
 app.component('IconEditor', IconEditor)
 app.component('FaviconGenerator', FaviconGenerator)
 app.component('IconCanvas', IconCanvas)
-app.component('ProjectSearchbar', ProjectSearchbar)
 app.component('SwitchCheckbox', SwitchCheckbox)
+app.component('ProjectSearchbar', ProjectSearchbar)
+app.component('ProjectsJsonModal', ProjectsJsonModal)
 
 app.mount('#app')
