@@ -1,17 +1,23 @@
 <template>
   <div class="mb-36">
     <div class="faviconForm">
-      <label for="title">Titel</label>
-      <input id="title" type="text" v-model="activeProject.title" class="input" />
-      <span v-if="formError && !activeProject.title" class="text-red-600">Bitte geben Sie einen Titel ein</span>
+      <div class="relative mb-8">
+        <label for="title">Titel</label>
+        <input id="title" type="text" v-model="activeProject.title" class="input" />
+        <span v-if="formError && !activeProject.title" class="text-red-600 absolute bottom--1">Bitte geben Sie einen Titel ein</span>
+      </div>
 
-      <label for="description">Beschreibung</label>
-      <input id="description" type="text" v-model="activeProject.description" class="input" />
-      <span v-if="formError && !activeProject.description" class="text-red-600">Bitte geben Sie eine Beschreibung ein</span>
+      <div class="relative mb-8">
+        <label for="description">Beschreibung</label>
+        <input id="description" type="text" v-model="activeProject.description" class="input" />
+        <span v-if="formError && !activeProject.description" class="text-red-600 absolute bottom--1">Bitte geben Sie eine Beschreibung ein</span>
+      </div>
 
-      <label for="domain">Domain</label>
-      <input id="domain" type="text" v-model="activeProject.domain" class="input" />
-      <span v-if="formError && !activeProject.domain" class="text-red-600">Bitte geben Sie eine Domain ein</span>
+      <div class="relative mb-8">
+        <label for="domain">Domain</label>
+        <input id="domain" type="text" v-model="activeProject.domain" class="input" />
+        <span v-if="formError && !activeProject.domain" class="text-red-600 absolute bottom--1">Bitte geben Sie eine Domain ein</span>
+      </div>
 
       <label for="domain">Hintergrund-Farbe</label>
       <input type="color" v-model="activeProject.backgroundColor" />
@@ -60,7 +66,7 @@ function validateProjectForm() {
 
 function saveProject() {
   if(!validateProjectForm()) return
-  
+
   if (projectsData.saveProject(activeProject.value)) {
     router.push({ name: 'favicon.generator.edit', params: { projectId: activeProject.value.id } })
   }
