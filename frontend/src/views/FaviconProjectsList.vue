@@ -3,12 +3,23 @@
     <button class="blueButton mb-12" @click="downloadLocalStorageAsJSON()">
       Alle Projekte als JSON Herunterladen
     </button>
-    <button @click="showModal = true" class="blueButton">Projekte als JSON importieren</button>
+    <button @click="showModalImport = true" class="blueButton">
+      Projekte als JSON importieren
+    </button>
     <ProjectsJsonModal
-      v-if="showModal"
-      :isOpen="showModal"
-      @close="showModal = false"
-      @save="handleSaveJsonString"
+      v-if="showModalImport"
+      :isOpen="showModalImport"
+      @close="showModalImport = false"
+      @save="handleImportProjectsFromJsonString"
+    />
+    <button @click="showModalOneImport = true" class="blueButton">
+      Ein Projekt als JSON importieren
+    </button>
+    <ProjectsJsonModal
+      v-if="showModalOneImport"
+      :isOpen="showModalOneImport"
+      @close="showModalOneImport = false"
+      @save="handleImportOneProjectFromJsonString"
     />
     <ProjectSearchbar />
     <table v-if="projects.length" class="listTable mt-4">
@@ -51,12 +62,19 @@ import { saveAs } from 'file-saver'
 const projectsData = projectsStore()
 const projects = ref(projectsData.projects)
 
-const showModal = ref(false)
+const showModalImport = ref(false)
+const showModalOneImport = ref(false)
 
-const handleSaveJsonString = (JsonString: string) => {
-  projectsData.importProjects(JsonString)
+const handleImportProjectsFromJsonString = (jsonString: string) => {
+  projectsData.importProjects(jsonString)
 
   location.reload()
+}
+
+const handleImportOneProjectFromJsonString = (jsonString: string) => {
+  projectsData.importOneProject(jsonString)
+
+  showModalOneImport.value = false
 }
 
 function downloadAsJSON(project: Project) {

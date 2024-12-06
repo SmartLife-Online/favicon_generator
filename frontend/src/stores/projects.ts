@@ -27,8 +27,16 @@ export const projectsStore = defineStore('projects', () => {
     return true
   }
 
-  const importProjects = (JsonString: string) => {
-    localStorage.setItem('projects', JsonString)
+  const importProjects = (jsonString: string) => {
+    localStorage.setItem('projects', jsonString)
+  }
+
+  const importOneProject = (jsonString: string) => {
+    const newProject = JSON.parse(jsonString)
+
+    newProject.id = null
+
+    saveProject(newProject)
   }
 
   const getNewProject = (): Project => {
@@ -61,5 +69,5 @@ export const projectsStore = defineStore('projects', () => {
 
   const projects = ref<Project[]>(localStorageProjects ? JSON.parse(localStorageProjects) : [])
 
-  return { projects, findProject, importProjects, saveProject }
+  return { projects, findProject, importProjects, importOneProject, saveProject }
 })

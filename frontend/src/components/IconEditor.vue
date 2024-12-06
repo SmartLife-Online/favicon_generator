@@ -162,9 +162,9 @@ const drawSvgOnCanvas = async (canvas: HTMLCanvasElement | null) => {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight)
 
   if (activeProject.rounded) {
-    ctx.beginPath();
-    ctx.arc(canvasWidth / 2, canvasWidth / 2, canvasWidth / 2, 0, Math.PI * 2);
-    ctx.clip();
+    ctx.beginPath()
+    ctx.arc(canvasWidth / 2, canvasWidth / 2, canvasWidth / 2, 0, Math.PI * 2)
+    ctx.clip()
   }
 
   ctx.fillStyle = background_color
