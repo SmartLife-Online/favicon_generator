@@ -103,7 +103,7 @@ const canvasArray = [
 const { background_color, activeProject } = defineProps(['background_color', 'activeProject'])
 
 watch(
-  () => [background_color, activeProject.gray],
+  () => [background_color, activeProject.rounded, activeProject.gray],
   (newValue, oldValue) => {
     drawSvgOnAllCanvas()
   },
@@ -160,6 +160,12 @@ const drawSvgOnCanvas = async (canvas: HTMLCanvasElement | null) => {
   if (!ctx) return false
 
   ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+
+  if (activeProject.rounded) {
+    ctx.beginPath();
+    ctx.arc(canvasWidth / 2, canvasWidth / 2, canvasWidth / 2, 0, Math.PI * 2);
+    ctx.clip();
+  }
 
   ctx.fillStyle = background_color
   ctx.fillRect(0, 0, canvasWidth, canvasHeight)
