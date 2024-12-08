@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 faviconForm">
+  <div class="p-8 faviconForm">
     <input v-model="searchQuery" type="text" placeholder="Suche nach Projekten..." class="mb-3" />
     <p v-if="searchQuery && filteredProjects.length === 0">
       Es konnte keine Projekte gefunden werden

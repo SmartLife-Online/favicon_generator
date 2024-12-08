@@ -35,19 +35,19 @@
     />
     <div id="testen" ref="refTest"></div>
     <br />
-    <button class="greenButton float-right" @click="downloadAndSaveProject">
+    <button class="greenButton float-right lg:mr-12" @click="downloadAndSaveProject">
       Herunterladen und Speichern
     </button>
-    <button class="blueButton float-right" @click="saveProject">Speichern</button>
+    <button class="blueButton lg:float-right lg:mr-6" @click="saveProject">Speichern</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { projectsStore } from '../stores/projects'
-import type { Project } from '../types/project'
-import IconEditor from '../components/IconEditor.vue'
+import { projectsStore } from '../../stores/projects'
+import type { Project } from '../../types/project'
+import IconEditor from './IconEditor.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -76,6 +76,8 @@ function saveProject() {
 
   if (projectsData.saveProject(activeProject.value)) {
     router.push({ name: 'favicon.generator.edit', params: { projectId: activeProject.value.id } })
+
+    alert('Projekt erfolgreich gespeichert')
   }
 }
 

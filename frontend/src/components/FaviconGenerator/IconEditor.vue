@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:px-8 mt-12 mb-24">
+  <div class="lg:px-8 mt-12 mb-24 lg:overflow-hidden">
     <SwitchCheckbox v-model="activeProject.rounded" label="Rundes Icon"></SwitchCheckbox>
     <SwitchCheckbox
       v-model="activeProject.gray"
@@ -45,9 +45,6 @@
           label="Microsoft PNG-Icon"
           :rounded-canvas="activeProject.rounded"
         ></IconCanvas>
-      </div>
-      <br />
-      <div>
         <IconCanvas
           ref="canvasWebpngKlein"
           name="favicon_webpng_klein"
@@ -77,12 +74,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { projectsStore } from '../stores/projects'
-import IconCanvas from '../components/IconCanvas.vue'
-import { Canvg } from 'canvg'
+import IconCanvas from './IconCanvas.vue'
+//import { Canvg } from 'canvg'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
-import canvasToSvg from 'canvas-to-svg'
+//import canvasToSvg from 'canvas-to-svg'
 
 const canvasIco = ref<InstanceType<typeof IconCanvas> | null>(null)
 const canvasWebpngKlein = ref<InstanceType<typeof IconCanvas> | null>(null)

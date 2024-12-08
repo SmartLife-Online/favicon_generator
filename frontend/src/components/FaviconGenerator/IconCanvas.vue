@@ -1,10 +1,10 @@
 <template>
-  <div class="mb-6 lg-mb:0 lg:inline-block">
+  <div class="mb-6 lg-mb:0 lg:inline-block lg:mr-6">
     <canvas
       ref="canvasRef"
       :id="name"
       :name="name"
-      class="lg:inline-block bg-white"
+      class="lg:inline-block bg-white lg:mr-2"
       :class="{ 'rounded-full': roundedCanvas }"
       :data-safezone="safezone"
       :data-format="format"
@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { projectsStore } from '../stores/projects'
 
 interface CanvasProps {
   name: string

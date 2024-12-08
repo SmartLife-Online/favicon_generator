@@ -1,7 +1,7 @@
 <template>
   <div
     :class="{ grayscale: isDevInstanz }"
-    class="m-auto mt-12 transition duration-500 w-11/12 lg:w-[1024px]"
+    class="m-auto mt-12 transition duration-500 w-11/12 lg:w-[1024px] overflow-hidden"
   >
     <header class="leading-6 max-h-full w-full lg:flex lg:place-items-center">
       <SwitchCheckbox
